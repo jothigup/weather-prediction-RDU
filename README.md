@@ -2,21 +2,27 @@
 
 ## Steps
 
-Phase 1: 
+Phase 1: (fri)
+- MEET: after class @11:30
 - data collection
 - everything in CSV
 
-Phase 2: 
+Phase 2: (sun)
+- ASYNC
 - processing data
 
-Phase 3: (wed)
+Phase 3: (fri)
+- MEET: after class @ 3:30
 - linear regression modeling 
+- prophet modeling
 
-Phase 4: 
+Phase 4: (sun)
+- TBD -- based on P3
 - iteration -- improving everything
-Decide on data
-Collect data
-Models: linear regression and prophet 
+
+Phase 5: (tues)
+- MEET: after class @2:30
+- deliverables
 
 ## Timeline
 
