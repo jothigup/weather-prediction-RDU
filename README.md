@@ -4,12 +4,16 @@
 
 Phase 1: 
 - data collection
+- everything in CSV
 
 Phase 2: 
-- linear regression
+- processing data
 
-Phase 3: 
-- 
+Phase 3: (wed)
+- linear regression modeling 
+
+Phase 4: 
+- iteration -- improving everything
 Decide on data
 Collect data
 Models: linear regression and prophet 
