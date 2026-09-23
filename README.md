@@ -1,5 +1,9 @@
 # weather-prediction-RDU
 
+## Notes
+
+DON'T USE ANY FUTURE DATA **DATA LEAKAGE**
+
 ## Steps
 
 Phase 1: (fri)
@@ -14,6 +18,7 @@ Phase 2: (sun)
 Phase 3: (fri)
 - MEET: after class @ 3:30
 - linear regression modeling 
+- logistic regression or time series or KNN classifier
 - prophet modeling
 
 Phase 4: (sun)
