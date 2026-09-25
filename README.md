@@ -1,5 +1,9 @@
 # weather-prediction-RDU
 
+## Objective
+
+Predict the hourly temperature measured at RDU airport for the period 12am September 17 – 11pm September 30
+
 ## Notes
 
 DON'T USE ANY FUTURE DATA **DATA LEAKAGE**
@@ -35,3 +39,7 @@ Phase 5: (tues)
 
 Meet
 1-2 days individually work on linear regression 
+
+## Sources
+
+https://meteostat.net/en/station/72306?t=2026-09-01/2026-09-16
