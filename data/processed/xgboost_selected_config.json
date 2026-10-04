@@ -1,0 +1,43 @@
+{
+  "candidate": "residual__compact_residual__medium_regularized",
+  "target_mode": "residual",
+  "feature_set": "compact_residual",
+  "features": [
+    "gfs_temp_f",
+    "forecast_hour",
+    "target_day",
+    "hour_sin",
+    "hour_cos",
+    "doy_sin",
+    "doy_cos",
+    "gfs_relative_humidity_pct",
+    "gfs_dewpoint_depression_f",
+    "gfs_u10_mps",
+    "gfs_v10_mps",
+    "gfs_mslp_hpa",
+    "gfs_total_cloud_cover_pct",
+    "gfs_precip_rate_mm_hr",
+    "recent_actual_temp_f",
+    "recent_24h_mean_f",
+    "recent_24h_change_f",
+    "recent_24h_range_f",
+    "gfs_temp_minus_recent_actual_f"
+  ],
+  "hyperparameters": {
+    "n_estimators": 700,
+    "learning_rate": 0.03,
+    "max_depth": 3,
+    "min_child_weight": 10.0,
+    "subsample": 0.85,
+    "colsample_bytree": 0.85,
+    "reg_alpha": 0.25,
+    "reg_lambda": 12.0
+  },
+  "validation_metrics": {
+    "RMSE_F": 5.262284311804667,
+    "MAE_F": 4.103479186762996,
+    "Bias_F": -0.18647101009158074,
+    "R2": 0.551716516827468,
+    "mean_run_RMSE_F": 5.11915748233251
+  }
+}
