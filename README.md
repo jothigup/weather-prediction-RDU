@@ -8,11 +8,11 @@ Hourly temperature forecasts for Raleigh-Durham International Airport (RDU), bui
 
 Predict the hourly temperature measured at RDU for the 336 hours from **12am September 17 to 11pm September 30, 2026**, using only data available before September 17.
 
-The brief required one linear regression model and at least one other model.
+Requires one linear regression model and at least one other model.
 
 ## Approach
 
-Every model in this repo starts from the same idea: NOAA's Global Forecast System (GFS) already forecasts temperature, so the models learn to **correct GFS** by comparing past forecasts with what RDU actually recorded.
+Every model in this repo starts from the same idea: NOAA's Global Forecast System (GFS) already forecasts temperature, so the models learn to correct GFS by comparing past forecasts with what RDU actually recorded.
 
 The team worked in parallel and built two independent pipelines.
 
@@ -30,40 +30,7 @@ Both pipelines forecast the target window from the GFS run initialized **Septemb
 
 ## Results on the target window (Sep 17–30, 2026)
 
-The two pipelines were scored separately. They use different GFS sources and label observation hours differently, so compare each model with the raw GFS row **in its own table**, not across tables.
-
-**Pipeline A** (`data/processed/final_2026_metrics_overall_FULL336.csv`)
-
-| Model | RMSE (°F) | MAE (°F) | R² |
-|---|---|---|---|
-| XGBoost | 6.92 | 5.35 | 0.545 |
-| Raw GFS | 7.85 | 6.46 | 0.413 |
-| Linear regression | 7.97 | 6.53 | 0.395 |
-
-**Pipeline B** (`notebooks/models/RF/yaari_daniel_pipeline.ipynb`)
-
-| Model | RMSE (°F) | MAE (°F) |
-|---|---|---|
-| Linear regression | 6.88 | 5.25 |
-| Random forest | 7.00 | 5.42 |
-| Climatology only | 7.61 | 6.34 |
-| Raw GFS | 7.84 | 6.24 |
-
-### Validation results
-
-**Pipeline A**
-
-| Model | 2024 validation MAE (°F) | 2025 test MAE (°F) |
-|---|---|---|
-| Raw GFS | 4.91 | 4.81 |
-| Linear regression (GFS temperature only) | 4.06 | 4.61 |
-| XGBoost (19 features, residual target) | 4.10 | 4.19 |
-
-**Pipeline B** (rolling backtest, RMSE in °F, all folds pooled)
-
-| Raw GFS | Climatology | Linear regression | Random forest |
-|---|---|---|---|
-| 6.16 | 5.52 | 5.18 | 4.93 |
+The two pipelines were scored separately. They use different GFS sources and label observation hours differently, so compare each model with the raw GFS row in its own table, not across tables.
 
 ### What we learned
 
@@ -110,28 +77,6 @@ Python 3 with `pandas`, `numpy`, `scikit-learn`, `matplotlib`, `requests` and `x
 ```
 pip install pandas numpy scikit-learn matplotlib requests xgboost herbie-data xarray
 ```
-
-### Pipeline A
-
-Run in this order. The downloaded and processed files are already committed, so you can start at step 3.
-
-1. `notebooks/data_sourcing/download_rdu_actuals.ipynb`
-2. `notebooks/data_sourcing/download_gfs_fast.ipynb` (or `download_gfs_expanded_weather.ipynb`, the slower Herbie version)
-3. `notebooks/data_preprocessing/eda_and_build_master_dataset.ipynb`
-4. `notebooks/models/linear_regression/konur_linear_regression.ipynb`
-5. `notebooks/models/xgboost/xgboost.ipynb`
-6. `notebooks/final_summary/konur_final_2026_evaluation.ipynb`
-
-### Pipeline B
-
-`notebooks/models/RF/yaari_daniel_pipeline.ipynb` runs end to end in one notebook. It was written for Google Colab and expects two files in the working directory:
-
-- `RDU_ACTUAL_HISTORICAL.csv`: the Iowa Environmental Mesonet ASOS export for RDU (columns `valid` and `tmpf`, Eastern time). This is **not** the file of the same name in `data/raw/`, which is in NOAA GHCNh format.
-- `FORECAST_FUTURE.csv`: in `data/raw/`.
-
-It downloads the GFS runs from Open-Meteo on first run and caches them as `gfs_runs_18z.csv`.
-
-`notebooks/models/linear_regression/daniel_linear_regression.ipynb` is the regression-only version of the same notebook.
 
 ## Guarding against data leakage
 
