@@ -19,9 +19,9 @@ The team worked in parallel and built three independent pipelines.
 
 ### What we learned
 
-- **GFS is too extreme.** The best linear regression in Pipeline A used only the GFS temperature, scaled down and shifted toward the mean. Pipeline B reached the same conclusion: the weight it puts on GFS falls from 0.92 at one day ahead to 0.10 at fifteen days.
-- **GFS loses to climatology after about a week.** In the Pipeline B backtest, raw GFS error passes the error of simply predicting the normal temperature at around day 7.
-- **More features did not help the linear models.** In Pipeline A, regressions with 9 to 15 features validated worse than the one-feature model.
+- **GFS is too extreme.** The best linear regression used only the GFS temperature, scaled down and shifted toward the mean. A similar appraoch reached the same conclusion: the weight it puts on GFS falls from 0.92 at one day ahead to 0.10 at fifteen days.
+- **GFS loses to climatology after about a week.** In one of the backtest, raw GFS error passes the error of simply predicting the normal temperature at around day 7.
+- **More features did not help the linear models.** Some regressions with 9 to 15 features validated worse than the one-feature model.
 - **The target window included a forecast bust.** From September 21 to 26, GFS missed a pattern change and every model's error rose to 9 to 13°F. Most of each model's overall error comes from those days.
 
 ## Repository structure
@@ -46,8 +46,8 @@ reports/figures/        Evaluation charts
 
 | File | What it is |
 |---|---|
-| `data/processed/modeling_historical.csv` | Pipeline A training table: 13,237 labeled forecast hours, 2021–2025 |
-| `data/processed/modeling_future.csv` | Pipeline A features for the 336 target hours |
+| `data/processed/modeling_historical.csv` | training table: 13,237 labeled forecast hours, 2021–2025 |
+| `data/processed/modeling_future.csv` | features for the 336 target hours |
 | `data/processed/modeling_feature_manifest.json` | Feature list, split definition and leakage notes |
 | `data/processed/xgboost_selected_config.json` | Chosen XGBoost features and hyperparameters |
 | `data/processed/final_2026_evaluation_hourly_FULL336.csv` | Hour-by-hour predictions and actuals for the target window |
@@ -68,8 +68,8 @@ pip install pandas numpy scikit-learn matplotlib requests xgboost herbie-data xa
 The team's rule from day one: don't use any future data.
 
 - **Hard cutoff.** No observation from September 17, 2026 onward is used to train or tune a model.
-- **Forecast-time features only.** Pipeline A's recent-observation features use only observations strictly before each simulated forecast cutoff. Pipeline B's climatology is built from 2018–2025 only.
-- **Time-based splits.** Pipeline A holds out whole years. Pipeline B trains on earlier runs and validates on later ones, with a 15-day gap so no training forecast overlaps a validation period.
+- **Forecast-time features only.** Some mdoels show recent-observation features use only observations strictly before each simulated forecast cutoff. Another has climatology which is built from 2018–2025 only.
+- **Time-based splits.** Some models holds out whole years while others trains on earlier runs and validates on later ones, with a 15-day gap so no training forecast overlaps a validation period.
 - **Test data used last.** Model selection was done on validation data. The target-window actuals were downloaded only to score frozen predictions.
 
 ## Project plan
