@@ -6,7 +6,7 @@ Hourly temperature forecasts for Raleigh-Durham International Airport (RDU), bui
 
 ## Objective
 
-Predict the hourly temperature measured at RDU for the 336 hours from **12am September 17 to 11pm September 30, 2026**, using only data available before September 17.
+Predict the hourly temperature measured at RDU for the 336 hours from 12am September 17 to 11pm September 30, 2026, using only data available before September 17.
 
 Requires one linear regression model and at least one other model.
 
@@ -22,7 +22,7 @@ The team worked in parallel and built three independent pipelines.
 - **GFS is too extreme.** The best linear regression in Pipeline A used only the GFS temperature, scaled down and shifted toward the mean. Pipeline B reached the same conclusion: the weight it puts on GFS falls from 0.92 at one day ahead to 0.10 at fifteen days.
 - **GFS loses to climatology after about a week.** In the Pipeline B backtest, raw GFS error passes the error of simply predicting the normal temperature at around day 7.
 - **More features did not help the linear models.** In Pipeline A, regressions with 9 to 15 features validated worse than the one-feature model.
-- **The target window included a forecast bust.** From September 21 to 26, GFS missed a pattern change and every model's error rose to 9–13°F. Most of each model's overall error comes from those days.
+- **The target window included a forecast bust.** From September 21 to 26, GFS missed a pattern change and every model's error rose to 9 to 13°F. Most of each model's overall error comes from those days.
 
 ## Repository structure
 
@@ -65,21 +65,12 @@ pip install pandas numpy scikit-learn matplotlib requests xgboost herbie-data xa
 
 ## Guarding against data leakage
 
-The team's rule from day one: **don't use any future data.**
+The team's rule from day one: don't use any future data.
 
 - **Hard cutoff.** No observation from September 17, 2026 onward is used to train or tune a model.
 - **Forecast-time features only.** Pipeline A's recent-observation features use only observations strictly before each simulated forecast cutoff. Pipeline B's climatology is built from 2018–2025 only.
 - **Time-based splits.** Pipeline A holds out whole years. Pipeline B trains on earlier runs and validates on later ones, with a 15-day gap so no training forecast overlaps a validation period.
 - **Test data used last.** Model selection was done on validation data. The target-window actuals were downloaded only to score frozen predictions.
-
-## Notes and limitations
-
-- Pipeline A interpolates GFS linearly to hourly values after forecast hour 120, where GFS output is 3-hourly.
-- Pipeline B trains on April to September 2026 only, so it has never seen a late September. The climatological baseline is what carries the seasonal signal.
-- The random forest's leaf size was tuned on the same backtest folds it is scored on, so its backtest RMSE is slightly optimistic.
-- One Open-Meteo run (June 10, 2026) failed to download and is missing from Pipeline B's training data.
-- `notebooks/models/linear_regression/linear_regression.ipynb` is an early exploratory notebook, kept for reference. It predates the leakage fixes in Pipeline B.
-- Ridge regression work is on the `new-jothi-branch` branch and has not been merged into `main`.
 
 ## Project plan
 
