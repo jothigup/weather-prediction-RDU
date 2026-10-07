@@ -68,7 +68,7 @@ pip install pandas numpy scikit-learn matplotlib requests xgboost herbie-data xa
 The team's rule from day one: don't use any future data.
 
 - **Hard cutoff.** No observation from September 17, 2026 onward is used to train or tune a model.
-- **Forecast-time features only.** Some mdoels show recent-observation features use only observations strictly before each simulated forecast cutoff. Another has climatology which is built from 2018–2025 only.
+- **Forecast-time features only.** Some mdoels show recent-observation features use only observations strictly before each simulated forecast cutoff. Another has climatology which is built from 2018-2025 only.
 - **Time-based splits.** Some models holds out whole years while others trains on earlier runs and validates on later ones, with a 15-day gap so no training forecast overlaps a validation period.
 - **Test data used last.** Model selection was done on validation data. The target-window actuals were downloaded only to score frozen predictions.
 
