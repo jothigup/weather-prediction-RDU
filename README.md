@@ -14,7 +14,7 @@ Requires one linear regression model and at least one other model.
 
 Every model in this repo starts from the same idea: NOAA's Global Forecast System (GFS) already forecasts temperature, so the models learn to correct GFS by comparing past forecasts with what RDU actually recorded.
 
-The team worked in parallel and built two independent pipelines.
+The team worked in parallel and built three independent pipelines.
 
 
 ### What we learned
