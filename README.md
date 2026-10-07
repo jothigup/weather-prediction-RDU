@@ -55,6 +55,10 @@ reports/figures/        Evaluation charts
 
 ## Running the notebooks
 
+Final models:
+- notebooks/models/linear_regression/jothi_linear_regression.ipynb
+- notebooks/models/xgboost/xgboost.ipynb
+
 ### Requirements
 
 Python 3 with `pandas`, `numpy`, `scikit-learn`, `matplotlib`, `requests` and `xgboost`. The Herbie-based download notebooks also need `herbie-data` and `xarray`.
