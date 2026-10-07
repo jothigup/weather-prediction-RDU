@@ -1,0 +1,76 @@
+{
+  "target": "actual_temp_f",
+  "model_features": [
+    "gfs_temp_f",
+    "gfs_relative_humidity_pct",
+    "gfs_dewpoint_f",
+    "gfs_dewpoint_depression_f",
+    "gfs_u10_mps",
+    "gfs_v10_mps",
+    "gfs_wind_speed_mph",
+    "gfs_wind_dir_sin",
+    "gfs_wind_dir_cos",
+    "gfs_mslp_hpa",
+    "gfs_total_cloud_cover_pct",
+    "gfs_precip_rate_mm_hr",
+    "forecast_hour",
+    "hours_into_target",
+    "target_day",
+    "is_native_gfs_time",
+    "hour_sin",
+    "hour_cos",
+    "doy_sin",
+    "doy_cos",
+    "recent_actual_temp_f",
+    "recent_obs_age_hours",
+    "recent_6h_mean_f",
+    "recent_6h_std_f",
+    "recent_6h_change_f",
+    "recent_24h_mean_f",
+    "recent_24h_std_f",
+    "recent_24h_change_f",
+    "recent_24h_min_f",
+    "recent_24h_max_f",
+    "recent_24h_range_f",
+    "gfs_temp_minus_recent_actual_f"
+  ],
+  "metadata_columns": [
+    "gfs_init_utc",
+    "valid_time_utc",
+    "valid_time_local",
+    "forecast_year",
+    "split",
+    "local_hour",
+    "day_of_year",
+    "gfs_grid_lat",
+    "gfs_grid_lon",
+    "data_product_version",
+    "simulated_cutoff_utc"
+  ],
+  "split_definition": {
+    "train": [
+      2021,
+      2022,
+      2023
+    ],
+    "validation": [
+      2024
+    ],
+    "test": [
+      2025
+    ],
+    "forecast_2026": [
+      2026
+    ]
+  },
+  "target_start_lead_hour": 10,
+  "target_end_lead_hour": 345,
+  "rows_per_complete_forecast": 336,
+  "notes": [
+    "GFS primitive variables are linearly interpolated after F120.",
+    "Dew point and wind direction are derived after interpolation.",
+    "Recent actual-temperature features use only observations strictly before each simulated cutoff.",
+    "Rows with unavailable historical target temperature are excluded from modeling_historical.csv.",
+    "2025 target-error performance is intentionally not evaluated in this EDA notebook."
+  ]
+}
