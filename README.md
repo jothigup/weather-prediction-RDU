@@ -16,21 +16,6 @@ Every model in this repo starts from the same idea: NOAA's Global Forecast Syste
 
 The team worked in parallel and built two independent pipelines.
 
-| | Pipeline A: multi-year | Pipeline B: current-year |
-|---|---|---|
-| Models | Linear regression, XGBoost | Linear regression (one per lead day), random forest |
-| GFS source | NOAA GFS via [Herbie](https://herbie.readthedocs.io/) and the [dynamical.org](https://dynamical.org/) API | [Open-Meteo](https://open-meteo.com/) single-runs API |
-| Training forecasts | 40 runs: eight 18Z runs per year, late July to mid-September, 2021–2025 | 166 runs: one 18Z run per day, Apr 3 – Sep 16, 2026 |
-| Observations | NOAA GHCNh, station USW00013722 | Iowa Environmental Mesonet ASOS archive, station RDU |
-| Labeled rows | 13,237 | 56,774 |
-| Split | Train 2021–2023, validate 2024, test 2025 | Rolling backtest: four blocks of 20 runs, each after a 15-day gap |
-| Target | Temperature, or GFS error (residual) | Departure from a 2018–2025 climatological normal |
-
-Both pipelines forecast the target window from the GFS run initialized **September 16, 2026 at 18Z**, the last run issued before the cutoff.
-
-## Results on the target window (Sep 17–30, 2026)
-
-The two pipelines were scored separately. They use different GFS sources and label observation hours differently, so compare each model with the raw GFS row in its own table, not across tables.
 
 ### What we learned
 
